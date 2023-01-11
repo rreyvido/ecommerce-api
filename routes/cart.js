@@ -39,10 +39,8 @@ router.put("/", async (req, res) => {
     //If cart already exists for user,
     if (cart) {
       const itemIndex = cart.products.findIndex((item) => {
-        console.log(item, productId);
         return item.productId.equals(productId);
       });
-      console.log(itemIndex);
       //check if product exists or not
 
       if (itemIndex > -1) {
@@ -75,7 +73,6 @@ router.put("/", async (req, res) => {
       return res.status(201).send(newCart);
     }
   } catch (error) {
-    console.log(error);
     res.status(500).send("something went wrong");
   }
 });
@@ -99,10 +96,8 @@ router.post("/", async (req, res) => {
     //If cart already exists for user,
     if (cart) {
       const itemIndex = cart.products.findIndex((item) => {
-        console.log(item, productId);
         return item.productId.equals(productId);
       });
-      console.log(itemIndex);
       //check if product exists or not
 
       if (itemIndex > -1) {
@@ -135,7 +130,6 @@ router.post("/", async (req, res) => {
       return res.status(201).send(newCart);
     }
   } catch (error) {
-    console.log(error);
     res.status(500).send("something went wrong");
   }
 });
@@ -146,13 +140,10 @@ router.delete("/", async (req, res) => {
   const owner = req.body._id;
   const productId = req.body.productId;
   try {
-    let cart = await Cart.findOne({ owner });
-
+    let cart = await Cart.findOne({ owner: owner });
     const itemIndex = cart.products.findIndex((item) => {
-      console.log(item, productId);
       return item.productId.equals(productId);
     });
-    console.log(itemIndex);
 
     if (itemIndex > -1) {
       let item = cart.products[itemIndex];
