@@ -8,6 +8,22 @@ const orderSchema = new mongoose.Schema(
       required: true,
       ref: "User",
     },
+    credentials: [
+      {
+        name: {
+          type: String,
+        },
+        address: {
+          type: String,
+        },
+        city: {
+          type: String,
+        },
+        zip: {
+          type: Number,
+        },
+      },
+    ],
     products: [
       {
         _id: false,
