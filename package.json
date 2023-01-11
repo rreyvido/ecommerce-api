@@ -1,0 +1,20 @@
+{
+  "name": "ecommerce-api",
+  "version": "1.0.0",
+  "description": "ecommerce api file",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "backend": "nodemon server.js"
+  },
+  "author": "rey",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.8.3"
+  }
+}
