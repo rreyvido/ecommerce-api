@@ -5,26 +5,51 @@ const User = require("../models/user");
 
 //Create User - or register, a simple post request to save user in db
 router.post("/register", (req, res) => {
-  const newUser = new User({
-    name: req.body.name,
-    username: req.body.username,
-    email: req.body.email,
-    password: CryptoJS.AES.encrypt(
-      req.body.password,
-      process.env.SECRET_KEY
-    ).toString(),
-    role: req.body.role,
-    phone: req.body.phone,
-    address: req.body.address,
-    city: req.body.city,
-    zip: req.body.zip,
-  });
+  const { role, phone, address, city, zip } = req.body;
 
-  //Password encryption using crypto-js
-  newUser
-    .save()
-    .then((user) => res.json(user))
-    .catch((err) => res.status(400).json({ message: "Could not create user" }));
+  if (role || phone || address || city || zip) {
+    const newUser = new User({
+      name: req.body.name,
+      username: req.body.username,
+      email: req.body.email,
+      password: CryptoJS.AES.encrypt(
+        req.body.password,
+        process.env.SECRET_KEY
+      ).toString(),
+      role: req.body.role,
+      phone: req.body.phone,
+      address: req.body.address,
+      city: req.body.city,
+      zip: req.body.zip,
+    });
+
+    //Password encryption using crypto-js
+    newUser
+      .save()
+      .then((user) => res.json(user))
+      .catch((err) => res.status(400).json(err));
+  } else {
+    const newUser = new User({
+      name: req.body.name,
+      username: req.body.username,
+      email: req.body.email,
+      password: CryptoJS.AES.encrypt(
+        req.body.password,
+        process.env.SECRET_KEY
+      ).toString(),
+      role: "customer",
+      phone: 62,
+      address: "not set",
+      city: "not set",
+      zip: 0,
+    });
+
+    //Password encryption using crypto-js
+    newUser
+      .save()
+      .then((user) => res.json(user))
+      .catch((err) => res.status(400).json(err));
+  }
 });
 
 //Login User
