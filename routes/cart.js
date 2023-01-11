@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
-const Cart = require("../models/Cart");
-const Product = require("../models/Product");
+const Cart = require("../models/cart");
+const Product = require("../models/product");
 
 //get cart by user id
 router.get("/:id", async (req, res) => {
