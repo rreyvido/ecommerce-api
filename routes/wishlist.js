@@ -43,22 +43,11 @@ router.post("/", async (req, res) => {
       //check if product exists or not
 
       if (itemIndex > -1) {
-        let product = wishlist.products[itemIndex];
-        product.quantity += quantity;
-
-        wishlist.bill = wishlist.products.reduce((acc, curr) => {
-          return acc + curr.quantity * curr.price;
-        }, 0);
-
-        wishlist.products[itemIndex] = product;
-        await wishlist.save();
-        res.status(200).send(wishlist);
+        wishlist.products.splice(itemIndex, 1);
+        wishlist = await wishlist.save();
+        res.status(200).send("deleted from wishlist");
       } else {
         wishlist.products.push({ productId, name, quantity, price });
-        wishlist.bill = wishlist.products.reduce((acc, curr) => {
-          return acc + curr.quantity * curr.price;
-        }, 0);
-
         await wishlist.save();
         res.status(200).send(wishlist);
       }
