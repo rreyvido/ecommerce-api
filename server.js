@@ -16,12 +16,14 @@ const user = require("./routes/user");
 const product = require("./routes/product");
 const cart = require("./routes/cart");
 const order = require("./routes/order");
+const wishlist = require("./routes/wishlist");
 
 //use routes
 app.use("/user", user);
 app.use("/product", product);
 app.use("/cart", cart);
 app.use("/order", order);
+app.use("/wishlist", wishlist);
 
 const PORT = process.env.PORT || 5000;
 
