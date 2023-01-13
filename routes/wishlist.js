@@ -70,24 +70,16 @@ router.delete("/", async (req, res) => {
   const owner = req.body._id;
   const productId = req.body.productId;
   try {
-    let cart = await Cart.findOne({ owner: owner });
-    const itemIndex = cart.products.findIndex((item) => {
+    let wishlist = await Wishlist.findOne({ owner: owner });
+    const itemIndex = wishlist.products.findIndex((item) => {
       return item.productId.equals(productId);
     });
 
     if (itemIndex > -1) {
-      let item = cart.products[itemIndex];
-      cart.bill = item.quantity * item.price;
-      if (cart.bill < 0) {
-        cart.bill = 0;
-      }
-      cart.products.splice(itemIndex, 1);
-      cart.bill = cart.products.reduce((acc, curr) => {
-        return acc + curr.quantity * curr.price;
-      }, 0);
-      cart = await cart.save();
-
-      res.status(200).send(cart);
+      let item = wishlist.products[itemIndex];
+      wishlist.products.splice(itemIndex, 1);
+      wishlist = await wishlist.save();
+      res.status(200).send(wishlist);
     } else {
       res.status(404).send("item not found");
     }
