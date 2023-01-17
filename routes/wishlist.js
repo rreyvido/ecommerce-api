@@ -35,6 +35,7 @@ router.post("/", async (req, res) => {
     }
     const price = product.price;
     const name = product.name;
+    const img = product.img;
     //If wishlist already exists for user,
     if (wishlist) {
       const itemIndex = wishlist.products.findIndex((item) => {
@@ -47,7 +48,7 @@ router.post("/", async (req, res) => {
         wishlist = await wishlist.save();
         res.status(200).send("deleted from wishlist");
       } else {
-        wishlist.products.push({ productId, name, quantity, price });
+        wishlist.products.push({ productId, name, quantity, price, img });
         await wishlist.save();
         res.status(200).send(wishlist);
       }
@@ -55,7 +56,7 @@ router.post("/", async (req, res) => {
       //no wishlist exists, create one
       const newWishlist = await Wishlist.create({
         owner,
-        products: [{ productId, name, quantity, price }],
+        products: [{ productId, name, quantity, price, img }],
       });
       return res.status(201).send(newWishlist);
     }

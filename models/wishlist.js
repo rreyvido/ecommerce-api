@@ -22,6 +22,7 @@ const wishlistSchema = new mongoose.Schema(
           default: 1,
         },
         like: { type: Boolean, default: true },
+        img: String,
         price: Number,
       },
     ],
